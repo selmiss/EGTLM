@@ -5,7 +5,7 @@ import torch.nn as nn
 from mteb import MTEB
 import torch
 
-from gritlm import GritLM
+from egtlm import EgtLM
 
 SET_TO_TASK_TO_DS_TO_PROMPT = {
     # https://github.com/microsoft/unilm/blob/16da2f193b9c1dab0a692c6e4380bd43e70a40cd/e5/utils.py#L93
@@ -1291,7 +1291,7 @@ def get_gpus_max_memory(max_memory):
     max_memory = {i: max_memory for i in range(torch.cuda.device_count())}
     return max_memory
 
-def gritlm_instruction_format(instruction):
+def EgtLM_instruction_format(instruction):
     return "<|user|>\n" + instruction + "\n<|embed|>\n" if instruction else "<|embed|>\n"
 
 def zephyr_instruction_format(instruction):
@@ -1304,7 +1304,7 @@ def mistral_instruction_format(instruction):
     return "[INST] " + instruction + " [/INST] "
 
 NAME_TO_FUNC = {
-    "gritlm": gritlm_instruction_format,
+    "EgtLM": EgtLM_instruction_format,
     "zephyr": zephyr_instruction_format,
     "tulu": tulu_instruction_format,
     "mistral": mistral_instruction_format,
@@ -1324,7 +1324,7 @@ SET_TO_FEWSHOT_PROMPT = {
 
 def get_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--model_name_or_path', default="GritLM/GritLM-7B", type=str)
+    parser.add_argument('--model_name_or_path', default="EgtLM/EgtLM-7B", type=str)
     parser.add_argument('--attn_implementation', default='eager', type=str, help="eager/sdpa/flash_attention_2")
     parser.add_argument('--attn', default='bbcc', type=str, help="only first two letters matter for embedding")
     parser.add_argument('--task_types', default=None, help="Comma separated. Default is None i.e. running all tasks")
@@ -1385,7 +1385,7 @@ if __name__ == '__main__':
     if args.embedding_head:
         kwargs["projection"] = args.embedding_head
 
-    model = GritLM(**kwargs)
+    model = EgtLM(**kwargs)
 
     # multi gpu
     # torch.cuda.set_device(args.local_rank)

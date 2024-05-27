@@ -8,13 +8,13 @@ from torch import Tensor
 from transformers import AutoModel
 from transformers.file_utils import ModelOutput
 
-from gritlm import GritLM
+from egtlm import EgtLM
 
 logger = logging.getLogger(__name__)
 
 
 @dataclass
-class GritLMTrainOutput(ModelOutput):
+class EgtLMTrainOutput(ModelOutput):
     q_reps: Optional[Tensor] = None
     p_reps: Optional[Tensor] = None
     loss: Optional[Tensor] = None
@@ -107,7 +107,7 @@ class NextTokenLoss:
             return self.cross_entropy(shift_logits, shift_labels) * self.loss_gen_factor
 
 
-class GritLMTrainModel(GritLM):
+class EgtLMTrainModel(EgtLM):
     TRANSFORMER_CLS = AutoModel
     def __init__(
         self,
@@ -213,7 +213,7 @@ class GritLMTrainModel(GritLM):
         loss = sum([x for x in [loss_emb, loss_gen] if x is not None])
 
         # Also return q_reps in case of GradCache
-        return GritLMTrainOutput(
+        return EgtLMTrainOutput(
             q_reps=q_reps,
             p_reps=p_reps,
             loss=loss,

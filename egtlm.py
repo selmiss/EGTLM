@@ -6,7 +6,7 @@ from tqdm import tqdm
 from transformers import AutoModel, AutoModelForCausalLM, AutoTokenizer
 
 
-class GritLM(torch.nn.Module):
+class EgtLM(torch.nn.Module):
     def __init__(
         self,
         model_name_or_path: str = None,
@@ -54,7 +54,7 @@ class GritLM(torch.nn.Module):
         if (self.attn is not None) and self.attn not in ['bbcc', 'cccc', 'bb', 'cc']:
             raise ValueError(f"Mixed attention no longer supported: {self.attn}. Only bbcc, cccc, bb, cc are supported")
 
-        print(f"Created GritLM: {self.model.dtype} dtype, {pooling_method} pool, {mode} mode, {attn} attn")
+        print(f"Created EgtLM: {self.model.dtype} dtype, {pooling_method} pool, {mode} mode, {attn} attn")
 
         if is_inference:
             # Padding side right is necessary for `embed_instruction` to index correctly

@@ -12,7 +12,7 @@ from transformers import AutoConfig, AutoTokenizer, HfArgumentParser, Trainer, s
 
 from .arguments import CustomTrainingArguments, DataArguments, ModelArguments
 from .data import CustomCollator, CustomDataset, CustomRandomSampler
-from .model import GritLMTrainModel
+from .model import EgtLMTrainModel
 
 BASE_BOS: str = "<s>"
 TURN_SEP: str = "\n"
@@ -228,7 +228,7 @@ def main():
             bnb_4bit_compute_dtype=torch.bfloat16,
         )
 
-    model = GritLMTrainModel(
+    model = EgtLMTrainModel(
         model_name_or_path=model_args.model_name_or_path,
         normalized=model_args.normalized,
         pooling_method=model_args.pooling_method,
