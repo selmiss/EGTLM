@@ -6,29 +6,29 @@ Embedding Generative Tuning Language Model (EGTLM), leveraging the robust semant
 
 To train the model, a mixed-task approach is used. The loss functions involved are as follows:
 
-The generative loss function, \(\mathcal{L}_{Gen}\), is defined as:
+The generative loss function, $\mathcal{L}_{Gen}\$, is defined as:
 
 $$
 \mathcal{L}_{Gen} = -\frac{1}{T} \sum_{t=1}^{T} \tilde{s}_{y_t}
 $$
 
-This loss measures the quality of text generation by averaging the scores over the sequence length \(T\).
+This loss measures the quality of text generation by averaging the scores over the sequence length $T$.
 
-The embedding loss function, \(\mathcal{L}_{Emb}\), is given by:
+The embedding loss function, $\mathcal{L}_{Emb}\$, is given by:
 
 $$
 \mathcal{L}_{Emb}(x, y, y') = (1 - l) \cdot D(f(x), f(y))^2 + l \cdot \max\left(0, \alpha - D(f(x), f(y'))\right)^2
 $$
 
-This loss ensures that the embeddings are learned effectively by balancing the distance between the correct pairs \((x, y)\) and the incorrect pairs \((x, y')\).
+This loss ensures that the embeddings are learned effectively by balancing the distance between the correct pairs $(x, y)\$ and the incorrect pairs $(x, y')\$.
 
-The combined loss function, \(\mathcal{L}_{Mix}\), used for training the model is:
+The combined loss function, $\mathcal{L}_{Mix}\$, used for training the model is:
 
 $$
 \mathcal{L}_{Mix}=\lambda_{Emb}\mathcal{L}_{Emb}+\lambda_{Gen}\mathcal{L}_{Gen}
 $$
 
-This mixed loss function integrates both the embedding and generative tasks, where \(\lambda_{Emb}\) and \(\lambda_{Gen}\) are the respective weights for each loss component.
+This mixed loss function integrates both the embedding and generative tasks, where $\lambda_{Emb}\$ and $\lambda_{Gen}\$ are the respective weights for each loss component.
 
 By using this mixed-task training approach, the model is capable of both text generation and embedding tasks effectively.
 
