@@ -9,8 +9,9 @@ To train the model, a mixed-task approach is used. The loss functions involved a
 The generative loss function, $\mathcal{L}_{Gen}\$, is defined as:
 
 $$
-\mathcal{L}_{Gen} = -\frac{1}{T} \sum_{t=1}^{T} \tilde{s}_{y_t}
+\mathcal{L}_{Gen} = -\frac{1}{T} \sum_{t=1}^{T} \left( s_{y_t} - \log \sum_{y' \in \mathcal{V}} e^{s_{y'}} \right)
 $$
+
 
 This loss measures the quality of text generation by averaging the scores over the sequence length $T$.
 
